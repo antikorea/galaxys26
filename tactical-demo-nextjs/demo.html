@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARES Tactical - Demo Store</title>
+    <link rel="stylesheet" href="demo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="view-controls">
+        <button id="desktopBtn" class="active">Desktop View</button>
+        <button id="mobileBtn">Mobile View</button>
+    </div>
+
+    <!-- The actual app container that will resize -->
+    <div id="deviceWrapper" class="desktop-mode">
+        <div class="app-content">
+            <header class="navbar">
+                <div class="logo">
+                    <img src="public/assets/logo.png" alt="Brand Logo">
+                    <span>ARES TACTICAL</span>
+                </div>
+                <nav class="nav-links">
+                    <a href="#">Shop</a>
+                    <a href="#">About</a>
+                    <a href="#">Cart (0)</a>
+                </nav>
+            </header>
+
+            <main>
+                <section class="hero">
+                    <h1>GEAR UP FOR THE UNKNOWN.</h1>
+                    <p>Premium civilian-military equipment for survival and adventure.</p>
+                </section>
+
+                <section class="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="public/assets/apparel.png" alt="Tactical Boot">
+                        </div>
+                        <div class="product-info">
+                            <h3>Phantom Combat Boot</h3>
+                            <p class="price">$189.99</p>
+                            <button class="buy-btn">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="public/assets/gear.png" alt="Combat Knife">
+                        </div>
+                        <div class="product-info">
+                            <h3>Obsidian Folding Knife</h3>
+                            <p class="price">$89.50</p>
+                            <button class="buy-btn">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="public/assets/survival.png" alt="MRE Ration">
+                        </div>
+                        <div class="product-info">
+                            <h3>Elite Survival Ration (MRE)</h3>
+                            <p class="price">$24.00</p>
+                            <button class="buy-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const desktopBtn = document.getElementById('desktopBtn');
+        const mobileBtn = document.getElementById('mobileBtn');
+        const wrapper = document.getElementById('deviceWrapper');
+
+        desktopBtn.addEventListener('click', () => {
+            wrapper.className = 'desktop-mode';
+            desktopBtn.classList.add('active');
+            mobileBtn.classList.remove('active');
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            wrapper.className = 'mobile-mode';
+            mobileBtn.classList.add('active');
+            desktopBtn.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

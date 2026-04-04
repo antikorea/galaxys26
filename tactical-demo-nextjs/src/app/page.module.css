@@ -1,0 +1,206 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.viewControls {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  background: #000;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.viewControls button {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 8px;
+  font-family: var(--font-outfit), sans-serif;
+  transition: background 0.3s;
+}
+
+.activeBtn {
+  background: var(--accent) !important;
+  color: #000 !important;
+}
+
+.deviceWrapper {
+  background-color: var(--bg-color);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  background-image: radial-gradient(circle at top, rgba(146, 176, 146, 0.1) 0%, transparent 50%);
+}
+
+.desktopMode {
+  width: 100%;
+  max-width: 1400px;
+  min-height: 85vh;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+}
+
+.mobileMode {
+  width: 390px;
+  height: 844px;
+  border-radius: 40px;
+  border: 12px solid #222;
+  overflow-y: auto;
+}
+
+.appContent {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.mobileMode .appContent {
+  padding: 1rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.logo img {
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.navHidden {
+  display: none;
+}
+
+.navLinks a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hero h1 {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  background: linear-gradient(135deg, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  color: var(--text-sec);
+  font-size: 1.2rem;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-bottom: 4rem;
+}
+
+.mobileGrid {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.productCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(146, 176, 146, 0.4);
+}
+
+.imageContainer {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  background: rgba(255,255,255,0.02);
+}
+
+.imageContainer img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+}
+
+.productInfo {
+  padding: 1.5rem;
+}
+
+.productInfo h3 {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.buyBtn {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--text-primary);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.buyBtn:hover {
+  background: var(--accent);
+}
