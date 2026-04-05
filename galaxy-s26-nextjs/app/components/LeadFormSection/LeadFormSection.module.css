@@ -1,0 +1,322 @@
+/* ============================================
+   Section 7: Lead Form (DB Cart)
+   ============================================ */
+
+.formSection {
+  position: relative;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+}
+
+.formCard {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.formHeader h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Live ticket */
+.liveTicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  background: rgba(0, 255, 100, 0.06);
+  border: 1px solid rgba(0, 255, 100, 0.15);
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.blinkingDot {
+  width: 10px;
+  height: 10px;
+  background: #00ff64;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.6);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.userCount {
+  font-weight: 800;
+  color: #00ff64;
+  transition: transform 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+/* Form */
+.dbForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #d4d4d8;
+}
+
+.formGroup label .required {
+  color: var(--neon-red);
+  margin-left: 2px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: var(--color-text-dim);
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: var(--neon-violet);
+  box-shadow: 0 0 12px var(--glow-violet);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.formGroup select {
+  cursor: pointer;
+}
+
+.formGroup select option {
+  background: #1a1a2e;
+  color: white;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Error styling */
+.formGroup input:invalid:not(:placeholder-shown),
+.formGroup select:invalid:not(:placeholder-shown) {
+  border-color: var(--neon-red);
+}
+
+.errorMessage {
+  font-size: 0.78rem;
+  color: var(--neon-red);
+  min-height: 1rem;
+}
+
+/* Checkbox */
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.customCheckbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.customCheckbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--neon-violet);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.termsLink {
+  flex-shrink: 0;
+  color: var(--neon-blue);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  margin-top: 2px;
+}
+
+.termsLink:hover {
+  color: var(--neon-cyan);
+}
+
+/* Submit button */
+.submitBtn {
+  width: 100%;
+  padding: 1.1rem 2rem;
+  border-radius: 60px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--neon-violet), var(--neon-violet-deep));
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow:
+    0 0 24px var(--glow-violet),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.submitBtn:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 40px var(--glow-violet),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.submitBtn:hover::before {
+  opacity: 1;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Glow */
+.formGlow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--glow-violet) 0%, transparent 60%);
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  padding: 3rem 2rem;
+  animation: modalSlide 0.4s var(--ease-out-expo);
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.modalContent h2 {
+  margin-bottom: 0.8rem;
+}
+
+.modalContent p {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.modalBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.5rem;
+  border-radius: 60px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-cyan));
+  color: #000;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.modalBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--glow-cyan);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .formCard {
+    padding: 2rem 1.5rem;
+  }
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

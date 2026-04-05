@@ -1,0 +1,88 @@
+/* ============================================
+   Section 8: Footer
+   ============================================ */
+
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+}
+
+.companyInfo {
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.legalLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.legalLinks a {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.legalLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--neon-violet);
+  transition: width var(--transition-base);
+}
+
+.legalLinks a:hover {
+  color: var(--color-text);
+}
+
+.legalLinks a:hover::after {
+  width: 100%;
+}
+
+.privacyPolicy {
+  font-weight: 700;
+  color: var(--color-text) !important;
+}
+
+.disclaimer {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  opacity: 0.6;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.backToTop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+  margin-bottom: 1.5rem;
+}
+
+.backToTop:hover {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: rgba(168, 85, 247, 0.3);
+  color: var(--neon-violet);
+  transform: translateY(-3px);
+}

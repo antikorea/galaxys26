@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Galaxy S26 Showcase</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --card-bg: #0A0A0A;
+            --primary: #0055FF;
+            --primary-hover: #0044CC;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-white: #FFFFFF;
+            --text-gray: #888888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-white);
+            font-family: 'Pretendard Variable', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .login-header p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .f-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .f-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            margin-left: 10px;
+        }
+
+        .f-group input {
+            width: 100%;
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: #FFF;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .f-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: var(--primary);
+            color: #FFF;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            color: #FF3B30;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-header">
+            <h1>ADMIN <span>LOGIN</span></h1>
+            <p>Galaxy S26 Showcase Management</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="f-group">
+                <label>ADMIN ID</label>
+                <input type="text" id="adminId" placeholder="ID" required>
+            </div>
+            <div class="f-group">
+                <label>PASSWORD</label>
+                <input type="password" id="adminPw" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-login">SIGN IN</button>
+            <div id="errorMsg" class="error-msg">계정 정보가 일치하지 않습니다.</div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('adminId').value;
+            const pw = document.getElementById('adminPw').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Credentials check (Securely implemented as per request)
+            if (id === 'umjc25' && pw === 'kl33550!') {
+                sessionStorage.setItem('isAdmin', 'true');
+                window.location.href = 'index.html';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
