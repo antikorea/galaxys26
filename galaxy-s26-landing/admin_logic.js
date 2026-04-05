@@ -3,21 +3,21 @@ const leadsTableBody = document.getElementById('leadsTableBody');
 const totalLeadsEl = document.getElementById('totalLeads');
 const emptyState = document.getElementById('emptyState');
 
+let globalLeads = [];
+
+// Listen to Firebase real-time updates!
+db.collection("leads").orderBy("id", "desc").onSnapshot((snapshot) => {
+    globalLeads = [];
+    snapshot.forEach((doc) => {
+        globalLeads.push(doc.data());
+    });
+    renderLeads();
+}, (error) => {
+    console.error("Firebase Snapshot Error:", error);
+});
+
 function renderLeads() {
-    let leads = [];
-    try {
-        leads = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
-    } catch (e) {
-        console.error('Error parsing leads storage:', e);
-        leads = [];
-    }
-    // Enforce array type to prevent .sort() crashes
-    if (!Array.isArray(leads)) {
-        leads = [];
-    }
-    
-    // Sort leads by latest first
-    const sortedLeads = leads.sort((a, b) => b.id - a.id);
+    const sortedLeads = globalLeads;
     
     // Update Total Counter
     totalLeadsEl.innerText = sortedLeads.length;
@@ -95,16 +95,9 @@ function deleteLead(id) {
         '신청 내역 삭제',
         '이 상담 신청 내역을 정말 삭제하시겠습니까? 삭제 후에는 복구할 수 없습니다.',
         () => {
-            let leads = [];
-            try {
-                leads = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
-                // Use loose inequality for robustness against ID type variations
-                leads = leads.filter(lead => lead.id != id);
-                localStorage.setItem('galaxy_leads', JSON.stringify(leads));
-                renderLeads();
-            } catch (e) {
-                console.error('Error during deletion:', e);
-            }
+            db.collection("leads").doc(id.toString()).delete()
+                .then(() => console.log('Lead successfully deleted from Firebase'))
+                .catch((error) => console.error('Error removing document: ', error));
         }
     );
 }
@@ -115,8 +108,9 @@ function clearAllLeads() {
         '데이터 초기화',
         '모든 신청 내역을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
         () => {
-            localStorage.removeItem('galaxy_leads');
-            renderLeads();
+            globalLeads.forEach(lead => {
+                db.collection("leads").doc(lead.id.toString()).delete();
+            });
         }
     );
 }
@@ -133,15 +127,3 @@ function refreshLeads() {
     renderLeads();
 }
 
-// 6. Real-time Synchronization (Crucial for multi-tab support)
-window.addEventListener('storage', (e) => {
-    if (e.key === 'galaxy_leads') {
-        console.log('Detected storage change in another tab. Updating list...');
-        renderLeads();
-    }
-});
-
-// Initial Load
-document.addEventListener('DOMContentLoaded', () => {
-    renderLeads();
-});

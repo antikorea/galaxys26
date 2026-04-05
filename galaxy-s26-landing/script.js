@@ -17,38 +17,27 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.innerText = '신청 접수 중...';
             
-            // Save lead to localStorage for Admin Dashboard
-            let leads = [];
-            try {
-                leads = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
-                if (!Array.isArray(leads)) {
-                    leads = [];
-                }
-            } catch (e) {
-                console.warn('Existing leads corrupted, resetting...', e);
-                leads = [];
-            }
+            // Save lead to Firebase Firestore
+            const newLead = {
+                id: Date.now(),
+                timestamp: new Date().toLocaleString('ko-KR'),
+                ...data
+            };
 
-            try {
-                const newLead = {
-                    id: Date.now(),
-                    timestamp: new Date().toLocaleString('ko-KR'),
-                    ...data
-                };
-                leads.push(newLead);
-                localStorage.setItem('galaxy_leads', JSON.stringify(leads));
-                console.log('Lead Persisted locally (Root Origin):', newLead);
-            } catch (e) {
-                console.error('Local storage save failure:', e);
-            }
-            
-            // Success Message
-            setTimeout(() => {
-                alert('최저가 상담 신청이 성공적으로 접수되었습니다. 전문 상담사가 가장 유리한 혜택으로 곧 안내드릴 예정입니다.');
-                form.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerText = '신청하기';
-            }, 1000);
+            db.collection("leads").doc(newLead.id.toString()).set(newLead)
+                .then(() => {
+                    console.log('Lead Persisted to Firebase:', newLead);
+                    alert('최저가 상담 신청이 성공적으로 접수되었습니다. 전문 상담사가 가장 유리한 혜택으로 곧 안내드릴 예정입니다.');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = '신청하기';
+                })
+                .catch((error) => {
+                    console.error('Firebase save failure:', error);
+                    alert('데이터베이스 연결 정보를 확인해주세요! (firebase_config.js 필요)');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = '신청하기';
+                });
         });
     }
 
