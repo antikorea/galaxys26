@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
-            if (!data.name || !data.phone_prefix || !data.phone_middle || !data.phone_last || !data.privacy) {
+            if (!data.name || !data.phone_prefix || !data.phone_middle || !data.phone_last) {
                 alert('정보를 정확히 입력해주세요.');
                 return;
             }
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('최저가 상담 신청이 성공적으로 접수되었습니다. 전문 상담사가 가장 유리한 혜택으로 곧 안내드릴 예정입니다.');
                 form.reset();
                 submitBtn.disabled = false;
-                submitBtn.innerText = '상담 신청하고 혜택 받기';
+                submitBtn.innerText = '신청하기';
             }, 1000);
         });
     }
