@@ -77,17 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(revealStyle);
 
-    // 3. Floating Button Logic
-    const floatingBtn = document.getElementById('floatingBtn');
-    window.addEventListener('scroll', () => {
-        if (window.innerWidth <= 768) {
-            if (window.scrollY > 500) {
-                floatingBtn.style.display = 'block';
-            } else {
-                floatingBtn.style.display = 'none';
-            }
-        }
-    });
+    // 3. Floating Button Logic (Removed per user request)
 
     // 4. Modal handling
     const viewPrivacy = document.getElementById('viewPrivacy');
