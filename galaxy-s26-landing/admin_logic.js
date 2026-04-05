@@ -11,6 +11,10 @@ function renderLeads() {
         console.error('Error parsing leads storage:', e);
         leads = [];
     }
+    // Enforce array type to prevent .sort() crashes
+    if (!Array.isArray(leads)) {
+        leads = [];
+    }
     
     // Sort leads by latest first
     const sortedLeads = leads.sort((a, b) => b.id - a.id);

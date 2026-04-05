@@ -17,10 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.innerText = '신청 접수 중...';
             
-            // Save lead to localStorage for Admin Dashboard (Root Sync Key: galaxy_leads)
+            // Save lead to localStorage for Admin Dashboard
             let leads = [];
             try {
                 leads = JSON.parse(localStorage.getItem('galaxy_leads') || '[]');
+                if (!Array.isArray(leads)) {
+                    leads = [];
+                }
+            } catch (e) {
+                console.warn('Existing leads corrupted, resetting...', e);
+                leads = [];
+            }
+
+            try {
                 const newLead = {
                     id: Date.now(),
                     timestamp: new Date().toLocaleString('ko-KR'),
@@ -30,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('galaxy_leads', JSON.stringify(leads));
                 console.log('Lead Persisted locally (Root Origin):', newLead);
             } catch (e) {
-                console.error('Local storage failure:', e);
+                console.error('Local storage save failure:', e);
             }
             
             // Success Message

@@ -186,7 +186,7 @@ body {
     border-radius: 0;
     box-shadow: none;
     filter: none;
-    transform: scale(2.4) translateX(12%); /* Desktop: big & pushed right */
+    transform: scale(2.4) rotate(90deg) translateX(12%); /* Desktop: big, rotated & pushed right */
     transform-origin: center;
     transition: transform 0.5s ease;
     mix-blend-mode: multiply; /* Blend white bg into dark site bg */
