@@ -5,31 +5,40 @@ const emptyState = document.getElementById('emptyState');
 
 let globalLeads = [];
 
-// Listen to Firebase real-time updates!
-db.collection("leads").orderBy("id", "desc").onSnapshot((snapshot) => {
-    globalLeads = [];
-    snapshot.forEach((doc) => {
-        globalLeads.push(doc.data());
-    });
-    renderLeads();
-}, (error) => {
-    console.error("Firebase Snapshot Error:", error);
-});
+// Fetch leads from NeonDB via Netlify Functions
+function fetchLeads() {
+    fetch('/.netlify/functions/getLeads')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                globalLeads = data.leads || [];
+                renderLeads();
+            } else {
+                console.error("Error fetching leads:", data.error);
+            }
+        })
+        .catch(error => {
+            console.error("Network Error:", error);
+        });
+}
+
+// Initial fetch
+fetchLeads();
 
 function renderLeads() {
     const sortedLeads = globalLeads;
     
     // Update Total Counter
-    totalLeadsEl.innerText = sortedLeads.length;
+    if(totalLeadsEl) totalLeadsEl.innerText = sortedLeads.length;
 
     // Clear Previous Rows
-    leadsTableBody.innerHTML = '';
+    if(leadsTableBody) leadsTableBody.innerHTML = '';
 
     if (sortedLeads.length === 0) {
-        emptyState.style.display = 'block';
+        if(emptyState) emptyState.style.display = 'flex'; // our new UI uses flex
         return;
     } else {
-        emptyState.style.display = 'none';
+        if(emptyState) emptyState.style.display = 'none';
     }
 
     sortedLeads.forEach(lead => {
@@ -58,7 +67,7 @@ function renderLeads() {
                 </div>
             </td>
         `;
-        leadsTableBody.appendChild(row);
+        if(leadsTableBody) leadsTableBody.appendChild(row);
     });
 }
 
@@ -71,23 +80,25 @@ const modalConfirmBtn = document.getElementById('modalConfirmBtn');
 let pendingAction = null;
 
 function showConfirm(title, message, action) {
-    modalTitle.innerText = title;
-    modalMessage.innerText = message;
+    if(modalTitle) modalTitle.innerText = title;
+    if(modalMessage) modalMessage.innerText = message;
     pendingAction = action;
-    confirmModal.classList.add('active');
+    if(confirmModal) confirmModal.classList.add('active');
 }
 
 function closeModal() {
-    confirmModal.classList.remove('active');
+    if(confirmModal) confirmModal.classList.remove('active');
     pendingAction = null;
 }
 
-modalConfirmBtn.addEventListener('click', () => {
-    if (pendingAction) {
-        pendingAction();
-    }
-    closeModal();
-});
+if(modalConfirmBtn) {
+    modalConfirmBtn.addEventListener('click', () => {
+        if (pendingAction) {
+            pendingAction();
+        }
+        closeModal();
+    });
+}
 
 // 3. Delete Single Lead
 function deleteLead(id) {
@@ -95,9 +106,21 @@ function deleteLead(id) {
         '신청 내역 삭제',
         '이 상담 신청 내역을 정말 삭제하시겠습니까? 삭제 후에는 복구할 수 없습니다.',
         () => {
-            db.collection("leads").doc(id.toString()).delete()
-                .then(() => console.log('Lead successfully deleted from Firebase'))
-                .catch((error) => console.error('Error removing document: ', error));
+            fetch('/.netlify/functions/deleteLead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    console.log('Lead successfully deleted from DB');
+                    fetchLeads(); // refresh the list
+                } else {
+                    console.error('Error removing document: ', data.error);
+                }
+            })
+            .catch(error => console.error('Network Error: ', error));
         }
     );
 }
@@ -108,9 +131,20 @@ function clearAllLeads() {
         '데이터 초기화',
         '모든 신청 내역을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
         () => {
-            globalLeads.forEach(lead => {
-                db.collection("leads").doc(lead.id.toString()).delete();
-            });
+            fetch('/.netlify/functions/clearLeads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    console.log('All leads successfully deleted from DB');
+                    fetchLeads(); // refresh the list
+                } else {
+                    console.error('Error clearing documents: ', data.error);
+                }
+            })
+            .catch(error => console.error('Network Error: ', error));
         }
     );
 }
@@ -121,9 +155,8 @@ function logout() {
     window.location.href = 'admin_login.html';
 }
 
-// 5. Manual Refresh
+// 6. Manual Refresh
 function refreshLeads() {
     console.log('Manual refresh triggered');
-    renderLeads();
+    fetchLeads();
 }
-

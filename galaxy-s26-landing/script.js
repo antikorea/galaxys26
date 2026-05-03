@@ -17,24 +17,33 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.innerText = '신청 접수 중...';
             
-            // Save lead to Firebase Firestore
+            // Save lead to NeonDB via Netlify Functions
             const newLead = {
-                id: Date.now(),
                 timestamp: new Date().toLocaleString('ko-KR'),
                 ...data
             };
 
-            db.collection("leads").doc(newLead.id.toString()).set(newLead)
-                .then(() => {
-                    console.log('Lead Persisted to Firebase:', newLead);
+            fetch('/.netlify/functions/createLead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newLead),
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(result => {
+                    console.log('Lead Persisted to DB:', result);
                     alert('최저가 상담 신청이 성공적으로 접수되었습니다. 전문 상담사가 가장 유리한 혜택으로 곧 안내드릴 예정입니다.');
                     form.reset();
                     submitBtn.disabled = false;
                     submitBtn.innerText = '신청하기';
                 })
                 .catch((error) => {
-                    console.error('Firebase save failure:', error);
-                    alert('데이터베이스 연결 정보를 확인해주세요! (firebase_config.js 필요)');
+                    console.error('Save failure:', error);
+                    alert('서버 저장에 실패했습니다. 다시 시도해주세요.');
                     submitBtn.disabled = false;
                     submitBtn.innerText = '신청하기';
                 });
