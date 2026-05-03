@@ -3,38 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Galaxy S26 Showcase</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap" rel="stylesheet">
+    <title>Admin Dashboard | Galaxy S26 Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         // Security Guard
         if (sessionStorage.getItem('isAdmin') !== 'true') {
             window.location.href = 'admin_login.html';
         }
     </script>
+    
     <style>
         :root {
-            --bg: #000000;
-            --card-bg: #0A0A0A;
-            --primary: #0055FF;
-            --danger: #FF3B30;
-            --border: rgba(255, 255, 255, 0.1);
-            --text-white: #FFFFFF;
-            --text-gray: #888888;
+            --bg-color: #050505;
+            --glass-bg: rgba(20, 20, 25, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary: #4361ee;
+            --primary-hover: #3a56d4;
+            --danger: #ef233c;
+            --danger-hover: #d90429;
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
+            --accent-glow: rgba(67, 97, 238, 0.4);
+            
+            --tag-skt: rgba(0, 168, 255, 0.15);
+            --tag-skt-text: #00a8ff;
+            --tag-kt: rgba(0, 210, 211, 0.15);
+            --tag-kt-text: #00d2d3;
+            --tag-lgu: rgba(238, 82, 83, 0.15);
+            --tag-lgu-text: #ee5253;
+            --tag-alt: rgba(131, 149, 167, 0.15);
+            --tag-alt-text: #c8d6e5;
+            
+            --tag-s26: rgba(255, 159, 67, 0.15);
+            --tag-s26-text: #ff9f43;
+            --tag-s26p: rgba(29, 209, 161, 0.15);
+            --tag-s26p-text: #1dd1a1;
+            --tag-s26u: rgba(254, 202, 87, 0.15);
+            --tag-s26u-text: #feca57;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
         body {
-            background-color: var(--bg);
-            color: var(--text-white);
-            font-family: 'Pretendard Variable', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
+        /* Ambient Background Glow */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(67,97,238,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .ambient-glow.right {
+            top: 40%;
+            left: auto;
+            right: -20%;
+            background: radial-gradient(circle, rgba(114,9,183,0.15) 0%, rgba(0,0,0,0) 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Glassmorphism Navbar */
         .navbar {
-            padding: 20px 40px;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
+            padding: 20px 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,172 +101,291 @@
         }
 
         .nav-brand {
-            font-family: 'Bricolage Grotesque', sans-serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 1.5rem;
-            letter-spacing: -1px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .nav-brand span { color: var(--primary); }
+        .nav-brand i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .nav-brand span { 
+            background: linear-gradient(90deg, #fff, #a0a0ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
         .btn-logout {
-            background: transparent;
-            color: var(--text-gray);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            padding: 10px 24px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-logout:hover {
+            background: rgba(239, 35, 60, 0.1);
             border-color: var(--danger);
             color: var(--danger);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(239, 35, 60, 0.2);
         }
 
+        /* Main Dashboard Layout */
         .main-content {
-            padding: 40px;
+            padding: 50px;
             max-width: 1400px;
             margin: 0 auto;
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .header-flex {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
+        /* Stats Card */
         .stats-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            display: inline-block;
-            min-width: 200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 35px 40px;
+            border-radius: 24px;
+            min-width: 280px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         .stats-card label {
             display: block;
-            color: var(--text-gray);
-            font-size: 0.8rem;
-            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
         }
 
         .stats-card .count {
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: 2.5rem;
-            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
-        .table-container {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+        /* Action Buttons */
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-refresh {
+            background: rgba(67, 97, 238, 0.1);
+            color: #748cf1;
+            border: 1px solid rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-refresh:hover {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-clear {
+            background: rgba(239, 35, 60, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 35, 60, 0.3);
+        }
+
+        .btn-clear:hover {
+            background: var(--danger);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(239, 35, 60, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Table Design */
+        .table-wrapper {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            white-space: nowrap;
         }
 
         th {
-            background: #111;
-            padding: 20px;
-            color: var(--text-gray);
-            font-size: 0.75rem;
+            background: rgba(0,0,0,0.3);
+            padding: 24px;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         td {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
+            padding: 22px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
             font-size: 0.95rem;
+            transition: background 0.2s ease;
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.02);
         }
 
         tr:last-child td { border-bottom: none; }
 
+        td strong {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        /* Badges / Tags */
         .tag {
-            padding: 4px 10px;
-            background: #1a1a1a;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
             font-weight: 600;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.5px;
         }
 
-        .tag.carrier { color: #00D1FF; border-color: rgba(0, 209, 255, 0.2); }
-        .tag.model { color: #FFD100; border-color: rgba(255, 209, 0, 0.2); }
+        /* Dynamically set from JS, defining CSS variables here */
+        .tag.carrier-skt { background: var(--tag-skt); color: var(--tag-skt-text); border: 1px solid rgba(0, 168, 255, 0.3); }
+        .tag.carrier-kt { background: var(--tag-kt); color: var(--tag-kt-text); border: 1px solid rgba(0, 210, 211, 0.3); }
+        .tag.carrier-lgu { background: var(--tag-lgu); color: var(--tag-lgu-text); border: 1px solid rgba(238, 82, 83, 0.3); }
+        .tag.carrier-alt { background: var(--tag-alt); color: var(--tag-alt-text); border: 1px solid rgba(131, 149, 167, 0.3); }
 
-        .action-btns {
-            display: flex;
-            gap: 10px;
-        }
+        .tag.model-s26 { background: var(--tag-s26); color: var(--tag-s26-text); border: 1px solid rgba(255, 159, 67, 0.3); }
+        .tag.model-s26p { background: var(--tag-s26p); color: var(--tag-s26p-text); border: 1px solid rgba(29, 209, 161, 0.3); }
+        .tag.model-s26u { background: var(--tag-s26u); color: var(--tag-s26u-text); border: 1px solid rgba(254, 202, 87, 0.3); }
 
-        .btn-delete {
+        /* Action Buttons in Table */
+        .btn-delete-row {
             background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-gray);
-            padding: 6px 12px;
-            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn-delete:hover {
-            background: var(--danger);
+        .btn-delete-row:hover {
+            background: rgba(239, 35, 60, 0.15);
             border-color: var(--danger);
-            color: #FFF;
-        }
-
-        .btn-clear {
-            background: var(--danger);
-            color: #FFF;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-refresh {
-            background: var(--primary);
-            color: #FFF;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-clear:hover, .btn-refresh:hover {
-            opacity: 0.8;
+            color: var(--danger);
+            transform: scale(1.05);
         }
 
         .empty-state {
-            padding: 100px;
+            padding: 100px 20px;
             text-align: center;
-            color: var(--text-gray);
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* Custom Confirmation Modal */
+        .empty-state i {
+            font-size: 3rem;
+            color: rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+
+        /* Modern Modal */
         #confirmModal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -224,102 +400,148 @@
         }
 
         .modal-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: rgba(20, 20, 25, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
             padding: 40px;
             border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 420px;
             text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #confirmModal.active .modal-card {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(239, 35, 60, 0.1);
+            color: var(--danger);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 25px auto;
+            border: 1px solid rgba(239, 35, 60, 0.2);
         }
 
         .modal-card h3 {
-            font-size: 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
             margin-bottom: 12px;
+            font-weight: 600;
         }
 
         .modal-card p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
 
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         .modal-actions button {
             flex: 1;
-            padding: 14px;
+            padding: 16px;
             border: none;
             border-radius: 12px;
-            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn-cancel {
-            background: #1a1a1a;
-            color: var(--text-white);
-            border: 1px solid var(--border) !important;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1) !important;
         }
 
         .btn-confirm {
             background: var(--danger);
             color: #FFF;
+            box-shadow: 0 4px 15px rgba(239, 35, 60, 0.3);
         }
 
-        .btn-cancel:hover { background: #222; }
-        .btn-confirm:hover { background: #E03126; transform: translateY(-2px); }
+        .btn-cancel:hover { background: rgba(255,255,255,0.1); }
+        .btn-confirm:hover { background: var(--danger-hover); transform: translateY(-2px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 20px; }
+            .main-content { padding: 20px; }
+            .dashboard-header { flex-direction: column; align-items: stretch; gap: 20px; }
+            .stats-card { min-width: auto; }
+            .header-actions { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Ambient Background -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow right"></div>
+
     <nav class="navbar">
-        <div class="nav-brand">GALAXY <span>ADMIN</span></div>
-        <button onclick="logout()" class="btn-logout">LOGOUT</button>
+        <div class="nav-brand">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span>GALAXY ADMIN</span>
+        </div>
+        <button onclick="logout()" class="btn-logout">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            LOGOUT
+        </button>
     </nav>
 
     <main class="main-content">
-        <div class="header-flex">
+        <div class="dashboard-header">
             <div>
                 <div class="stats-card">
-                    <label>TOTAL APPLICATIONS</label>
+                    <label>Total Applications</label>
                     <div id="totalLeads" class="count">0</div>
                 </div>
             </div>
             <div class="header-actions">
-                <button onclick="refreshLeads()" class="btn-refresh">REFRESH DATA</button>
-                <button onclick="clearAllLeads()" class="btn-clear">CLEAR ALL DATA</button>
+                <button onclick="refreshLeads()" class="btn btn-refresh">
+                    <i class="fa-solid fa-rotate-right"></i> REFRESH DATA
+                </button>
+                <button onclick="clearAllLeads()" class="btn btn-clear">
+                    <i class="fa-solid fa-trash-can"></i> CLEAR ALL DATA
+                </button>
             </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>SUBMISSION DATE</th>
-                        <th>NAME</th>
-                        <th>PHONE</th>
-                        <th>MODEL</th>
-                        <th>CARRIER</th>
-                        <th>ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody id="leadsTableBody">
-                    <!-- Dynamic Content -->
-                </tbody>
-            </table>
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Submission Date</th>
+                            <th>Applicant Name</th>
+                            <th>Phone Number</th>
+                            <th>Device Model</th>
+                            <th>Carrier</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <!-- Dynamic Content injected via JS -->
+                    </tbody>
+                </table>
+            </div>
             <div id="emptyState" class="empty-state" style="display: none;">
-                <p>접수된 상담 신청이 없습니다.</p>
+                <i class="fa-solid fa-inbox"></i>
+                <p>접수된 상담 신청 내역이 없습니다.</p>
             </div>
         </div>
     </main>
@@ -327,19 +549,91 @@
     <!-- Custom Confirmation Modal -->
     <div id="confirmModal">
         <div class="modal-card">
+            <div class="modal-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
             <h3 id="modalTitle">Confirm Action</h3>
             <p id="modalMessage">Are you sure you want to perform this action?</p>
             <div class="modal-actions">
-                <button onclick="closeModal()" class="btn-cancel">취소</button>
-                <button id="modalConfirmBtn" class="btn-confirm">승인</button>
+                <button onclick="closeModal()" class="btn-cancel">취소 (Cancel)</button>
+                <button id="modalConfirmBtn" class="btn-confirm">승인 (Confirm)</button>
             </div>
         </div>
     </div>
+    
     <!-- Firebase SDK (v8 Compat for static HTML) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="/firebase_config.js"></script>
 
+    <!-- Overriding parts of admin_logic.js for better UI rendering -->
+    <script>
+        // We override renderLeads to use our new fancy tags while keeping the original script loaded
+        // This script block will execute after admin_logic.js because we'll load admin_logic.js first, 
+        // wait, let's load admin_logic.js, then override the function.
+    </script>
     <script src="/admin_logic.js"></script>
+    <script>
+        // Override renderLeads to match our new CSS classes for Tags
+        const originalRenderLeads = renderLeads;
+        renderLeads = function() {
+            const sortedLeads = globalLeads;
+            
+            // Update Total Counter
+            document.getElementById('totalLeads').innerText = sortedLeads.length;
+
+            const leadsTbody = document.getElementById('leadsTableBody');
+            const emptySt = document.getElementById('emptyState');
+            leadsTbody.innerHTML = '';
+
+            if (sortedLeads.length === 0) {
+                emptySt.style.display = 'flex';
+                return;
+            } else {
+                emptySt.style.display = 'none';
+            }
+
+            sortedLeads.forEach((lead, index) => {
+                const row = document.createElement('tr');
+                row.style.animation = `fadeIn 0.4s ease-out ${index * 0.05}s forwards`;
+                row.style.opacity = '0';
+                
+                // Format Phone Number
+                const phoneFormatted = `${lead.phone_prefix || '010'}-${lead.phone_middle || '0000'}-${lead.phone_last || '0000'}`;
+                
+                // Format Model Tag
+                let modelClass = 'model-s26';
+                let modelDisplay = 'S26';
+                if (lead.model === 's26plus') { modelClass = 'model-s26p'; modelDisplay = 'S26+'; }
+                else if (lead.model === 's26ultra') { modelClass = 'model-s26u'; modelDisplay = 'S26 ULTRA'; }
+                
+                // Format Carrier Tag
+                let carrierClass = 'carrier-alt';
+                let carrierDisplay = '알뜰폰';
+                if (lead.carrier === 'skt') { carrierClass = 'carrier-skt'; carrierDisplay = 'SKT'; }
+                else if (lead.carrier === 'kt') { carrierClass = 'carrier-kt'; carrierDisplay = 'KT'; }
+                else if (lead.carrier === 'lgu') { carrierClass = 'carrier-lgu'; carrierDisplay = 'LGU+'; }
+
+                row.innerHTML = `
+                    <td>${lead.timestamp}</td>
+                    <td><strong>${lead.name}</strong></td>
+                    <td>${phoneFormatted}</td>
+                    <td><span class="tag ${modelClass}">${modelDisplay}</span></td>
+                    <td><span class="tag ${carrierClass}">${carrierDisplay}</span></td>
+                    <td>
+                        <button onclick="deleteLead(${lead.id})" class="btn-delete-row" title="Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                leadsTbody.appendChild(row);
+            });
+        };
+        
+        // Initial render trigger in case the snapshot already fired
+        if (globalLeads && globalLeads.length >= 0) {
+            renderLeads();
+        }
+    </script>
 </body>
 </html>
