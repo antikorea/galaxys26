@@ -8,7 +8,7 @@
     <!-- Ultra Premium Type stack -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <link rel="stylesheet" href="style.css?v=7.0">
 </head>
 <body>
 
@@ -148,10 +148,7 @@
                             <label class="r-item"><input type="radio" name="carrier" value="mvno"> <span>알뜰폰</span></label>
                         </div>
                     </div>
-                    <div class="f-consent">
-                        <label><input type="checkbox" name="privacy" required checked> <span>개인정보 수집 및 이용 동의</span></label>
-                        <a href="#" id="viewPrivacy">[[보기]]</a>
-                    </div>
+
                     <button type="submit" class="btn-full">신청하기</button>
                 </form>
             </div>
@@ -160,23 +157,42 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container text-center">
-            <p>&copy; 2026 S26 Master Showcase Center. All Rights Reserved.</p>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-info">
+                    <div class="footer-row">
+                        <span><strong>회사명</strong> 다쏜다 얼마줄까</span>
+                        <span class="divider">|</span>
+                        <span><strong>대표</strong> 김준우</span>
+                        <span class="divider">|</span>
+                        <span><strong>사업자번호</strong> 868-02-02937</span>
+                    </div>
+                    <div class="footer-row">
+                        <span><strong>주소</strong> 용인시 수지구 기흥구 영통로 525번길 24, 402-384호</span>
+                    </div>
+                    <div class="footer-row">
+                        <span><strong>개인정보관리책임자</strong> 김준우</span>
+                        <span class="divider">|</span>
+                        <span><strong>이메일</strong> umjc25@gmail.com</span>
+                    </div>
+                    <div class="footer-row">
+                        <span><strong>판매제휴업체</strong> SK / KT / LG</span>
+                    </div>
+                    <div class="footer-row">
+                        <span><strong>통신판매업신고번호</strong> 제 2026-용인기-00635 호</span>
+                    </div>
+                </div>
+                <div class="footer-cert">
+                    <a href="https://ictmarket.or.kr:8443/precon/pop_CertIcon.do?PRECON_REQ_ID=PRE0000198407&YN=1" target="_blank">
+                        <img src="https://www.kait.or.kr/attatch/f6828604-ac26-441c-b2ca-fb4954b7abee" alt="사전승낙서" class="cert-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2026 다쏜다 얼마줄까. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
-
-    <!-- Minimal Privacy Modal -->
-    <div id="privacyModal" class="modal">
-        <div class="modal-content">
-            <h4>개인정보 수집 동의</h4>
-            <div class="m-body">
-                <p>수집: 성함, 연락처</p>
-                <p>목적: 최저가 견적 안내 및 해피콜</p>
-                <p>파기: 상담 완료 즉시 파기</p>
-            </div>
-            <button class="close-modal">확인</button>
-        </div>
-    </div>
     <!-- Firebase SDK (v8 Compat for static HTML) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
