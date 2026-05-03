@@ -1,0 +1,7 @@
+[build]
+  base = "galaxy-s26-landing"
+  publish = "galaxy-s26-landing"
+  command = "npm ci && npm run build"
+
+[functions]
+  directory = "galaxy-s26-landing/netlify/functions"
