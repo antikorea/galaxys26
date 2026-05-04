@@ -531,4 +531,8 @@ body {
     .r-group { grid-template-columns: 1fr; }
     .r-group.rows { grid-template-columns: 1fr; }
     .cta-mini { display: none; }
+    
+    /* Mobile font-size reduction for privacy consent */
+    .checkbox-label { font-size: 0.855rem; }
+    .privacy-link { font-size: 0.765rem; }
 }
